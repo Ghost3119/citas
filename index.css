@@ -1,0 +1,80 @@
+@import url('./fonts/Lato-Regular.ttf');
+
+:root {
+    --primary-color: #008161b7;
+    /* Azul */
+    --secondary-color: #f4821fde;
+    /* Verde */
+    --tertiary-color: #e4f0fbd7;
+    /* Azul claro */
+    --quaternary-color: #2195f3ce;
+    /* Azul oscuro */
+    --background-color: #f4f4f4;
+    /* Gris claro */
+    --text-color: #333;
+    /* Gris oscuro */
+}
+
+
+* {
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    flex-direction: column;
+}
+
+.form {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    flex-direction: column;
+    display: flex;
+}
+
+.titulo {
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.form input {
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border: 1px solid var(--text-color);
+    border-radius: 0.5rem;
+
+}
+
+.form label {
+    color: var(--text-color);
+    font-size: 1.5rem;
+}
+
+.btn-login {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.btn-login:hover {
+    background-color: var(--secondary-color);
+}

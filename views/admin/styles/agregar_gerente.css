@@ -1,0 +1,112 @@
+@import url('../../../fonts/Lato-Regular.ttf');
+
+:root {
+    --primary-color: #008161b7;
+    /* Azul */
+    --secondary-color: #f4821fde;
+    /* Verde */
+    --tertiary-color: #e4f0fbd7;
+    /* Azul claro */
+    --quaternary-color: #2195f3ce;
+    /* Azul oscuro */
+    --background-color: #f4f4f4;
+    /* Gris claro */
+    --text-color: #333;
+    /* Gris oscuro */
+}
+
+
+* {
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+.navbar {
+    background-color: var(--secondary-color);
+    padding: 1.75rem;
+    border-radius: 1.5rem;
+    margin: 0.25rem;
+    color: var(--text-color);
+}
+
+.navbar-elements {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-elements ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+}
+
+.navbar-elements ul li {
+    margin: 0 1rem;
+}
+
+.navbar-elements ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    transition: color 0.3s;
+    font-weight: bold;
+}
+
+.navbar-elements ul li a:hover {
+    color: var(--background-color);
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form {
+    background-color: var(--tertiary-color);
+    padding: 1.75rem;
+    border-radius: 1.5rem;
+    margin: 0.25rem;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+.form select {
+    margin: 0.5rem;
+    padding: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.form select option {
+    padding: 1rem;
+
+}
+
+.form label {
+    margin: 0.5rem;
+    font-size: 1.25rem;
+}
+
+.add-gerente {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    padding: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    margin: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-gerente:hover {
+    background-color: var(--secondary-color);
+}
