@@ -23,16 +23,18 @@ if (isset($_POST['iniciar'])) {
             $_SESSION['nombreAdmin'] = $campo['nombre'];
             header("location: ./views/admin/index.php");
             exit();
-        } elseif ($campo['rol'] == 'gerente') {
-            $_SESSION['idUsuarioGerente'] = $campo['idUsuario'];
+        }
+        if ($campo['rol'] == 'gerente') {
+            $_SESSION['idUsuarioGerente'] = $campo['id'];
             $_SESSION['emailGerente'] = $email;
             $_SESSION['nombreGerente'] = $campo['nombre'];
             header("location: ./views/gerente/index.php");
             exit();
-        } else {
-            $_SESSION['idUsuario'] = $campo['idUsuario'];
-            $_SESSION['email'] = $email;
-            $_SESSION['nombre'] = $campo['nombre'];
+        }
+        if ($campo['rol'] == 'empleado') {
+            $_SESSION['idUsuarioEmpleado'] = $campo['id'];
+            $_SESSION['emailEmpleado'] = $email;
+            $_SESSION['nombreEmpleado'] = $campo['nombre'];
             header("location: ./views/empleado/index.php");
             exit();
         }

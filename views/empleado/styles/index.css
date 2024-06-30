@@ -1,0 +1,133 @@
+@import url('../../../fonts/Lato-Regular.ttf');
+
+:root {
+    --primary-color: #008161b7;
+    /* Azul */
+    --secondary-color: #f4821fde;
+    /* Verde */
+    --tertiary-color: #e4f0fbd7;
+    /* Azul claro */
+    --quaternary-color: #2195f3ce;
+    /* Azul oscuro */
+    --background-color: #f4f4f4;
+    /* Gris claro */
+    --text-color: #333;
+    /* Gris oscuro */
+}
+
+
+* {
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+.navbar {
+    background-color: var(--secondary-color);
+    padding: 1.75rem;
+    border-radius: 1.5rem;
+    margin: 0.25rem;
+    color: var(--text-color);
+}
+
+.navbar-elements {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-elements ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+}
+
+.navbar-elements ul li {
+    margin: 0 1rem;
+}
+
+.navbar-elements ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    transition: color 0.3s;
+    font-weight: bold;
+}
+
+.navbar-elements ul li a:hover {
+    color: var(--background-color);
+}
+
+.tarjeta {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 1rem;
+    border-radius: 1rem;
+    margin: 0.25rem;
+    height: 10.5em;
+    width: 10.5em;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+.secciones {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--primary-color);
+    padding: 1rem;
+    border-radius: 1.5rem;
+    margin: 0.25rem;
+    width: 50%;
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.container {
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.agregar-tarjeta {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    padding: 1rem;
+    border-radius: 1rem;
+    margin: 0.25rem;
+    text-align: center;
+    text-decoration: none;
+    transition: color 0.3s;
+    height: 10.5em;
+    width: 10.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-weight: bold;
+}
+
+.tarjeta a {
+    text-decoration: none;
+    color: var(--text-color);
+    transition: color 0.3s;
+    font-weight: bold;
+}
+
+.tarjeta a:hover {
+    color: var(--quaternary-color);
+
+}
+
+.agregar-tarjeta:hover {
+    color: var(--background-color);
+}

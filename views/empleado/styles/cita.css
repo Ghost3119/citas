@@ -1,0 +1,125 @@
+@import url('../../../fonts/Lato-Regular.ttf');
+
+:root {
+    --primary-color: #008161b7;
+    /* Azul */
+    --secondary-color: #f4821fde;
+    /* Verde */
+    --tertiary-color: #e4f0fbd7;
+    /* Azul claro */
+    --quaternary-color: #2195f3ce;
+    /* Azul oscuro */
+    --background-color: #f4f4f4;
+    /* Gris claro */
+    --text-color: #333;
+    /* Gris oscuro */
+}
+
+
+* {
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+.navbar {
+    background-color: var(--secondary-color);
+    padding: 1.75rem;
+    border-radius: 1.5rem;
+    margin: 0.25rem;
+    color: var(--text-color);
+}
+
+.navbar-elements {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-elements ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+}
+
+.navbar-elements ul li {
+    margin: 0 1rem;
+}
+
+.navbar-elements ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+    transition: color 0.3s;
+    font-weight: bold;
+}
+
+.navbar-elements ul li a:hover {
+    color: var(--background-color);
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.form {
+    background-color: var(--tertiary-color);
+    padding: 2rem;
+    border-radius: 1.5rem;
+    margin: 0.5rem;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.form h2 {
+    margin-bottom: 1rem;
+}
+
+.form input {
+    margin: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: none;
+}
+
+.form textarea {
+    margin: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: none;
+}
+
+.btn-update {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    margin: 0.5rem;
+    cursor: pointer;
+}
+
+.btn-update:hover {
+    background-color: var(--secondary-color);
+}
+
+.btn-delete {
+    background-color: rgb(150, 48, 48);
+    color: var(--background-color);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    margin: 0.5rem;
+    cursor: pointer;
+}
+
+.btn-delete:hover {
+    background-color: rgb(200, 48, 48);
+}
