@@ -79,7 +79,7 @@ $sucursal_id = $query->fetchColumn();
 
                 // Consultar los empleados de la sucursal
                 $query = $conn->prepare('
-            SELECT e.id, u.nombre, u.email, u.id AS usuario_id 
+            SELECT e.id, u.nombre, u.numeroEmpleado , u.id AS usuario_id 
             FROM empleados e 
             INNER JOIN usuarios u ON e.usuario_id = u.id 
             WHERE e.sucursal_id = :sucursal_id
@@ -92,7 +92,7 @@ $sucursal_id = $query->fetchColumn();
                 ?>
                     <div class="tarjeta">
                         <h3>Nombre: <?php echo htmlspecialchars($empleado['nombre']); ?></h3>
-                        <p>Correo: <?php echo htmlspecialchars($empleado['email']); ?></p>
+                        <p>Numero Empleado : <?php echo htmlspecialchars($empleado['numeroEmpleado']); ?></p>
                         <a href="empleado.php?id=<?php echo $empleado['id']; ?>">Ver detalles</a>
                     </div>
                 <?php

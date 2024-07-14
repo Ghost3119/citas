@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-06-2024 a las 23:41:42
+-- Tiempo de generación: 14-07-2024 a las 04:58:02
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -36,6 +36,16 @@ CREATE TABLE `citas` (
   `descripcion` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+--
+-- Volcado de datos para la tabla `citas`
+--
+
+INSERT INTO `citas` (`id`, `sucursal_id`, `empleado_id`, `fecha`, `hora`, `descripcion`) VALUES
+(3, 1, 1, '2024-06-26', '18:26:00', 'Mantenimiento tubería de agua'),
+(4, 2, 3, '2024-06-26', '12:10:00', 'Entrega CEDIS'),
+(5, 1, 2, '2024-07-02', '13:17:00', 'asdasd'),
+(6, 2, 3, '2024-06-30', '21:21:00', 'asdasd');
+
 -- --------------------------------------------------------
 
 --
@@ -47,6 +57,14 @@ CREATE TABLE `empleados` (
   `usuario_id` int(11) NOT NULL,
   `sucursal_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Volcado de datos para la tabla `empleados`
+--
+
+INSERT INTO `empleados` (`id`, `usuario_id`, `sucursal_id`) VALUES
+(1, 1, 1),
+(2, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -60,6 +78,15 @@ CREATE TABLE `gerentes` (
   `sucursal_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+--
+-- Volcado de datos para la tabla `gerentes`
+--
+
+INSERT INTO `gerentes` (`id`, `usuario_id`, `sucursal_id`) VALUES
+(1, 2, 1),
+(2, 4, 2),
+(3, 5, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -68,9 +95,18 @@ CREATE TABLE `gerentes` (
 
 CREATE TABLE `sucursales` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(255) NOT NULL,
+  `numeroSucursal` varchar(255) NOT NULL,
   `direccion` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Volcado de datos para la tabla `sucursales`
+--
+
+INSERT INTO `sucursales` (`id`, `numeroSucursal`, `direccion`) VALUES
+(1, 'Seven union 2', 'Enrique segoviano'),
+(2, 'Seven Republica', 'Miguel Hidalgo #459'),
+(6, '564', 'Miguel Hidalgo #459');
 
 -- --------------------------------------------------------
 
@@ -81,7 +117,7 @@ CREATE TABLE `sucursales` (
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
   `nombre` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `numeroEmpleado` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `rol` enum('admin','gerente','empleado') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -90,8 +126,36 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `rol`) VALUES
-(1, 'Admin', 'admin@email.com', '123', 'admin');
+INSERT INTO `usuarios` (`id`, `nombre`, `numeroEmpleado`, `password`, `rol`) VALUES
+(1, 'Admin', 'admin@email.com', '123', 'admin'),
+(2, 'Jose Angel', 'contacto@contacto.com', '123', 'gerente'),
+(3, 'Jose Cervantes Miguel', 'email@email.com', '123', 'empleado'),
+(4, 'Miguel ', 'miguel@correo.com', '123', 'gerente'),
+(5, 'Jose Angel', '1234', '123', 'gerente');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `visitas`
+--
+
+CREATE TABLE `visitas` (
+  `id` int(11) NOT NULL,
+  `sucursal_id` int(11) NOT NULL,
+  `nombre_visitante` varchar(255) NOT NULL,
+  `motivo` varchar(255) NOT NULL,
+  `hora_llegada` time NOT NULL,
+  `observaciones` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Volcado de datos para la tabla `visitas`
+--
+
+INSERT INTO `visitas` (`id`, `sucursal_id`, `nombre_visitante`, `motivo`, `hora_llegada`, `observaciones`) VALUES
+(1, 2, 'Jose Mercado', 'Mantenimiento Cuarto frio', '20:44:00', 'Llego con mas de 4 personas'),
+(2, 1, 'Jose Mercado', 'Mantenimiento Cuarto frio', '23:56:00', 'ADFAds'),
+(3, 2, 'Jose Mercado', 'Mantenimiento Cuarto frio', '20:00:00', 'asdasd');
 
 --
 -- Índices para tablas volcadas
@@ -132,7 +196,14 @@ ALTER TABLE `sucursales`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD UNIQUE KEY `email` (`numeroEmpleado`);
+
+--
+-- Indices de la tabla `visitas`
+--
+ALTER TABLE `visitas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sucursal_id` (`sucursal_id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -142,31 +213,37 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `empleados`
 --
 ALTER TABLE `empleados`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `gerentes`
 --
 ALTER TABLE `gerentes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `sucursales`
 --
 ALTER TABLE `sucursales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `visitas`
+--
+ALTER TABLE `visitas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas
@@ -192,6 +269,12 @@ ALTER TABLE `empleados`
 ALTER TABLE `gerentes`
   ADD CONSTRAINT `gerentes_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `gerentes_ibfk_2` FOREIGN KEY (`sucursal_id`) REFERENCES `sucursales` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `visitas`
+--
+ALTER TABLE `visitas`
+  ADD CONSTRAINT `visitas_ibfk_1` FOREIGN KEY (`sucursal_id`) REFERENCES `sucursales` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -9,13 +9,13 @@ if (!isset($_SESSION['idUsuarioGerente'])) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nombre = $_POST['nombre'];
-    $email = $_POST['email'];
+    $numeroEmpleado = $_POST['numeroEmpleado'];
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
     $sucursal_id = $_SESSION['sucursal_id'];  // La sucursal del gerente
 
-    $query = $conn->prepare('INSERT INTO usuarios (nombre, email, password, rol) VALUES (:nombre, :email, :password, "empleado")');
+    $query = $conn->prepare('INSERT INTO usuarios (nombre, numeroEmpleado, password, rol) VALUES (:nombre, :numeroEmpleado, :password, "empleado")');
     $query->bindParam(':nombre', $nombre);
-    $query->bindParam(':email', $email);
+    $query->bindParam(':numeroEmpleado', $numeroEmpleado);
     $query->bindParam(':password', $password);
     $query->execute();
     $usuario_id = $conn->lastInsertId();
@@ -56,8 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <form class="form" method="POST" action="agregar_usuario_empleado.php">
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+            <label for="numeroEmpleado">Numero Empleado:</label>
+            <input type="text" id="numeroEmpleado" name="numeroEmpleado" required>
             <label for="password">Contraseña:</label>
             <input type="password" id="password" name="password" required>
             <input class="btn-agregar" type="submit" value="Agregar Empleado">

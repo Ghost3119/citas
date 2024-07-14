@@ -45,7 +45,7 @@ if (!isset($_SESSION['idUsuarioAdmin'])) {
                 foreach ($sucursales as $sucursal) {
                 ?>
                     <div class="tarjeta">
-                        <h3>Nombre: <?php echo $sucursal['nombre']; ?></h3>
+                        <h3>Numero de tienda: <?php echo $sucursal['numeroSucursal']; ?></h3>
                         <p>Dirección: <?php echo $sucursal['direccion']; ?></p>
                         <a href="sucursal.php?id=<?php echo $sucursal['id']; ?>">Ver detalles</a>
                     </div>
@@ -61,16 +61,16 @@ if (!isset($_SESSION['idUsuarioAdmin'])) {
             <div class="container">
                 <a href="agregar_usuario.php" class="agregar-tarjeta">Agregar Usuario</a>
                 <?php
-                $query = $conn->prepare('SELECT u.id, u.nombre, u.email, u.rol, s.nombre as sucursal FROM usuarios u LEFT JOIN gerentes g ON u.id = g.usuario_id LEFT JOIN empleados e ON u.id = e.usuario_id LEFT JOIN sucursales s ON g.sucursal_id = s.id OR e.sucursal_id = s.id');
+                $query = $conn->prepare('SELECT u.id, u.nombre, u.numeroEmpleado, u.rol, s.numeroSucursal as sucursal FROM usuarios u LEFT JOIN gerentes g ON u.id = g.usuario_id LEFT JOIN empleados e ON u.id = e.usuario_id LEFT JOIN sucursales s ON g.sucursal_id = s.id OR e.sucursal_id = s.id');
                 $query->execute();
                 $usuarios = $query->fetchAll();
                 foreach ($usuarios as $usuario) {
                 ?>
                     <div class="tarjeta">
                         <h3>Nombre: <?php echo $usuario['nombre']; ?></h3>
-                        <p>Email: <?php echo $usuario['email']; ?></p>
+                        <p>Numero Empleado: <?php echo $usuario['numeroEmpleado']; ?></p>
                         <p>Rol: <?php echo $usuario['rol']; ?></p>
-                        <p>Sucursal: <?php echo $usuario['sucursal']; ?></p>
+                        <p>Numero Sucursal: <?php echo $usuario['sucursal']; ?></p>
                     </div>
                 <?php
                 }

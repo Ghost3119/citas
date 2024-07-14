@@ -8,11 +8,11 @@ if (!isset($_SESSION['idUsuarioAdmin'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add'])) {
-    $nombre = $_POST['nombre'];
+    $numeroSucursal = $_POST['numeroSucursal'];
     $direccion = $_POST['direccion'];
 
-    $query = $conn->prepare('INSERT INTO sucursales (nombre, direccion) VALUES (:nombre, :direccion)');
-    $query->bindParam(':nombre', $nombre);
+    $query = $conn->prepare('INSERT INTO sucursales (numeroSucursal, direccion) VALUES (:numeroSucursal, :direccion)');
+    $query->bindParam(':numeroSucursal', $numeroSucursal);
     $query->bindParam(':direccion', $direccion);
     $query->execute();
 
@@ -45,8 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add'])) {
     </header>
     <main class="main">
         <form class="form" method="POST" action="agregar_sucursal.php">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required>
+            <label for="numeroSucursal">Numero Sucursal:</label>
+            <input type="text" id="numeroSucursal" name="numeroSucursal" required>
             <label for="direccion">Dirección:</label>
             <input type="text" id="direccion" name="direccion" required>
             <input class="btn-add" type="submit" name="add" value="Agregar Sucursal">

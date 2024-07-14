@@ -41,9 +41,9 @@ $sucursal_id = $query->fetchColumn();
     <main class="main">
 
         <section class="secciones">
-            <h2>Agendar Cita</h2>
+            <h2>Registrar visitas</h2>
             <div class="container">
-                <a href="agendar_cita.php" class="agregar-tarjeta">Agendar Cita</a>
+                <a href="registrar_visita.php" class="agregar-tarjeta">Registrar visita</a>
                 <?php
                 // Obtener el ID de la sucursal del gerente
                 $empleado_id = $_SESSION['idUsuarioEmpleado'];
@@ -52,26 +52,30 @@ $sucursal_id = $query->fetchColumn();
                 $query->execute();
                 $sucursal_id = $query->fetchColumn();
 
-                // Consultar las citas de la sucursal
-                $query = $conn->prepare('SELECT * FROM citas WHERE sucursal_id = :sucursal_id');
+                // Consultar las visitas de la sucursal
+                $query = $conn->prepare('SELECT * FROM visitas WHERE sucursal_id = :sucursal_id');
                 $query->bindParam(':sucursal_id', $sucursal_id, PDO::PARAM_INT);
                 $query->execute();
                 $citas = $query->fetchAll();
 
                 foreach ($citas as $cita) {
+                    /*
+                    campos sucursal_id	nombre_visitante	motivo	hora_llegada	observaciones	
+                    */
                 ?>
                     <div class="tarjeta">
-                        <h3>Fecha: <?php echo $cita['fecha']; ?></h3>
-                        <p>Hora: <?php echo $cita['hora']; ?></p>
-                        <p>Descripción: <?php echo $cita['descripcion']; ?></p>
-                        <a href="cita.php?id=<?php echo $cita['id']; ?>">Ver detalles</a>
+                        <h3>Nombre del visitante: <?php echo $cita['nombre_visitante']; ?></h3>
+                        <p>Motivo: <?php echo $cita['motivo']; ?></p>
+                        <p>Hora de llegada: <?php echo $cita['hora_llegada']; ?></p>
+                        <p>Observaciones: <?php echo $cita['observaciones']; ?></p>
+                        <a href="visita.php?id=<?php echo $cita['id']; ?>">Ver detalles</a>
+
                     </div>
                 <?php
                 }
                 ?>
             </div>
         </section>
-
     </main>
 </body>
 

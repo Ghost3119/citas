@@ -8,21 +8,21 @@ if (!isset($_SESSION['idUsuarioAdmin'])) {
 }
 
 // Obtener lista de sucursales para seleccionar
-$querySucursales = $conn->prepare('SELECT id, nombre FROM sucursales');
+$querySucursales = $conn->prepare('SELECT id, numeroSucursal FROM sucursales');
 $querySucursales->execute();
 $sucursales = $querySucursales->fetchAll();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add'])) {
     $nombre = $_POST['nombre'];
-    $email = $_POST['email'];
+    $numeroEmpleado = $_POST['numeroEmpleado'];
     $password = $_POST['password'];
     $rol = $_POST['rol'];
     $sucursal_id = $_POST['sucursal_id'];
 
     // Insertar usuario en la tabla usuarios
-    $queryUsuario = $conn->prepare('INSERT INTO usuarios (nombre, email, password, rol) VALUES (:nombre, :email, :password, :rol)');
+    $queryUsuario = $conn->prepare('INSERT INTO usuarios (nombre, numeroEmpleado, password, rol) VALUES (:nombre, :numeroEmpleado, :password, :rol)');
     $queryUsuario->bindParam(':nombre', $nombre);
-    $queryUsuario->bindParam(':email', $email);
+    $queryUsuario->bindParam(':numeroEmpleado', $numeroEmpleado);
     $queryUsuario->bindParam(':password', $password); // Aquí deberías cifrar la contraseña antes de guardarla en la base de datos
     $queryUsuario->bindParam(':rol', $rol);
     $queryUsuario->execute();
@@ -74,8 +74,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add'])) {
         <form class="form" method="POST" action="agregar_usuario.php">
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+            <label for="numeroEmpleado">Numero Empleado:</label>
+            <input type="text" id="email" name="numeroEmpleado" required>
             <label for="password">Contraseña:</label>
             <input type="password" id="password" name="password" required>
             <label for="rol">Rol:</label>
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add'])) {
             <label for="sucursal_id">Sucursal:</label>
             <select id="sucursal_id" name="sucursal_id" required>
                 <?php foreach ($sucursales as $sucursal) : ?>
-                    <option value="<?php echo $sucursal['id']; ?>"><?php echo htmlspecialchars($sucursal['nombre']); ?></option>
+                    <option value="<?php echo $sucursal['id']; ?>"><?php echo htmlspecialchars($sucursal['numeroSucursal']); ?></option>
                 <?php endforeach; ?>
             </select>
             <input class="btn-add" type="submit" name="add" value="Agregar Usuario">

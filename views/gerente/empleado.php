@@ -19,7 +19,7 @@ $sucursal_id = $query->fetchColumn();
 
 // Preparar y ejecutar la consulta para obtener los detalles del empleado
 $query = $conn->prepare('
-    SELECT e.id, u.nombre, u.email, e.sucursal_id 
+    SELECT e.id, u.nombre, u.numeroEmpleado, e.sucursal_id 
     FROM empleados e 
     INNER JOIN usuarios u ON e.usuario_id = u.id 
     WHERE e.id = :id AND e.sucursal_id = :sucursal_id
@@ -46,11 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else if (isset($_POST['update'])) {
         // Actualizar el empleado
         $nombre = $_POST['nombre'];
-        $email = $_POST['email'];
+        $numeroEmpleado = $_POST['numeroEmpleado'];
 
-        $updateUserQuery = $conn->prepare('UPDATE usuarios SET nombre = :nombre, email = :email WHERE id = (SELECT usuario_id FROM empleados WHERE id = :id)');
+        $updateUserQuery = $conn->prepare('UPDATE usuarios SET nombre = :nombre, numeroEmpleado  = :numeroEmpleado  WHERE id = (SELECT usuario_id FROM empleados WHERE id = :id)');
         $updateUserQuery->bindParam(':nombre', $nombre);
-        $updateUserQuery->bindParam(':email', $email);
+        $updateUserQuery->bindParam(':numeroEmpleado', $numeroEmpleado);
         $updateUserQuery->bindParam(':id', $id, PDO::PARAM_INT);
         $updateUserQuery->execute();
         header("Location: empleado.php?id=" . $id);
@@ -86,8 +86,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <form class="form" method="POST" action="empleado.php?id=<?php echo $id; ?>">
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($empleado['nombre']); ?>" required>
-            <label for="email">Correo:</label>
-            <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($empleado['email']); ?>" required>
+            <label for="numeroEmpleado">Numero Empleado :</label>
+            <input type="text" id="numeroEmpleado" name="numeroEmpleado" value="<?php echo htmlspecialchars($empleado['numeroEmpleado']); ?>" required>
             <input class="btn-update" type="submit" name="update" value="Actualizar Empleado">
             <input class="btn-delete" type="submit" name="delete" value="Eliminar Empleado">
         </form>
