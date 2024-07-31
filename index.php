@@ -70,7 +70,7 @@ if (isset($_POST['iniciar'])) {
     <main class="main">
         <h2 class="titulo">Iniciar sesión</h2>
         <form class="form" action="" method="POST">
-            <label for="numeroEmpleado">numeroEmpleado:</label>
+            <label for="numeroEmpleado">Numero Empleado:</label>
             <input type="text" id="numeroEmpleado" name="numeroEmpleado" required>
             <label for="password">Contraseña:</label>
             <input type="password" id="password" name="password" required>

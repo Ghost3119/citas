@@ -12,11 +12,11 @@ $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 // Procesar el formulario de edición
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
-    $nombre = $_POST['nombre'];
+    $numeroSucursal = $_POST['numeroSucursal'];
     $direccion = $_POST['direccion'];
 
-    $query = $conn->prepare('UPDATE sucursales SET nombre = :nombre, direccion = :direccion WHERE id = :id');
-    $query->bindParam(':nombre', $nombre);
+    $query = $conn->prepare('UPDATE sucursales SET numeroSucursal = :numeroSucursal, direccion = :direccion WHERE id = :id');
+    $query->bindParam(':numeroSucursal', $numeroSucursal);
     $query->bindParam(':direccion', $direccion);
     $query->bindParam(':id', $id);
     $query->execute();
@@ -55,7 +55,7 @@ $citas = $queryCitas->fetchAll();
 
 // Obtener gerentes de la sucursal
 $queryGerentes = $conn->prepare('
-    SELECT u.id, u.nombre, u.email 
+    SELECT u.id, u.nombre, u.numeroEmpleado 
     FROM gerentes g 
     JOIN usuarios u ON g.usuario_id = u.id 
     WHERE g.sucursal_id = :id
@@ -66,7 +66,7 @@ $gerentes = $queryGerentes->fetchAll();
 
 // Obtener empleados de la sucursal
 $queryEmpleados = $conn->prepare('
-    SELECT u.id, u.nombre, u.email 
+    SELECT u.id, u.nombre, u.numeroEmpleado 
     FROM empleados e 
     JOIN usuarios u ON e.usuario_id = u.id 
     WHERE e.sucursal_id = :id
@@ -103,7 +103,7 @@ $empleados = $queryEmpleados->fetchAll();
 
         <section class="detalles">
             <h2>Detalles</h2>
-            <h3><?php echo htmlspecialchars($sucursal['nombre']); ?></h3>
+            <h3><?php echo htmlspecialchars($sucursal['numeroSucursal']); ?></h3>
             <p><strong>Dirección:</strong> <?php echo htmlspecialchars($sucursal['direccion']); ?></p>
             <div>
                 <button class="btn-update" onclick="openModal()">Editar</button>
@@ -116,7 +116,7 @@ $empleados = $queryEmpleados->fetchAll();
             <div class="modal-content">
                 <span class="close" onclick="closeModal()">&times;</span>
                 <form method="POST" action="sucursal.php?id=<?php echo $id; ?>">
-                    <label for="nombre">Nombre:</label>
+                    <label for="numeroSucursal">Numero Sucursal:</label>
                     <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($sucursal['nombre']); ?>" required>
                     <label for="direccion">Dirección:</label>
                     <input type="text" id="direccion" name="direccion" value="<?php echo htmlspecialchars($sucursal['direccion']); ?>" required>
@@ -153,7 +153,7 @@ $empleados = $queryEmpleados->fetchAll();
                 <a class="add-cita" href="agregar_gerente.php?sucursal_id=<?php echo $id; ?>">Agregar Gerente</a>
                 <ul>
                     <?php foreach ($gerentes as $gerente) : ?>
-                        <li><?php echo htmlspecialchars($gerente['nombre'] . ' (' . $gerente['email'] . ')'); ?></li>
+                        <li><?php echo htmlspecialchars($gerente['nombre'] . ' (' . $gerente['numeroEmpleado'] . ')'); ?></li>
                     <?php endforeach; ?>
                 </ul>
             <?php else : ?>
@@ -168,7 +168,7 @@ $empleados = $queryEmpleados->fetchAll();
                 <a class="add-cita" href="agregar_empleado.php?sucursal_id=<?php echo $id; ?>">Agregar Empleado</a>
                 <ul>
                     <?php foreach ($empleados as $empleado) : ?>
-                        <li><?php echo htmlspecialchars($empleado['nombre'] . ' (' . $empleado['email'] . ')'); ?></li>
+                        <li><?php echo htmlspecialchars($empleado['nombre'] . ' (' . $empleado['numeroEmpleado'] . ')'); ?></li>
                     <?php endforeach; ?>
                 </ul>
             <?php else : ?>

@@ -131,3 +131,42 @@ body {
 .agregar-tarjeta:hover {
     color: var(--background-color);
 }
+
+.user-search {
+    display: flex;
+    flex-direction: row;
+}
+
+.user-search form {
+    display: flex;
+    flex-direction: row;
+}
+
+.user-search form input {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--text-color);
+    width: 13rem;
+    margin-right: 0.5rem;
+}
+
+.user-search form button {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--text-color);
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+.user-search form button:hover {
+    background-color: var(--background-color);
+    color: var(--secondary-color);
+}
+
+.usuarios {
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

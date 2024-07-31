@@ -58,8 +58,14 @@ if (!isset($_SESSION['idUsuarioAdmin'])) {
 
         <section class="secciones">
             <h2>Usuarios</h2>
-            <div class="container">
-                <a href="agregar_usuario.php" class="agregar-tarjeta">Agregar Usuario</a>
+            <div class="user-search">
+                <form id="search-form">
+                    <input type="text" name="buscar" placeholder="Buscar numero de empleado" id="search-input">
+                    <button type="submit">Buscar</button>
+                </form>
+            </div>
+            <div class="usuarios">
+                <a href="agregar_usuario.php" id="agregar_user" class="agregar-tarjeta">Agregar Usuario</a>
                 <?php
                 $query = $conn->prepare('SELECT u.id, u.nombre, u.numeroEmpleado, u.rol, s.numeroSucursal as sucursal FROM usuarios u LEFT JOIN gerentes g ON u.id = g.usuario_id LEFT JOIN empleados e ON u.id = e.usuario_id LEFT JOIN sucursales s ON g.sucursal_id = s.id OR e.sucursal_id = s.id');
                 $query->execute();
@@ -71,6 +77,7 @@ if (!isset($_SESSION['idUsuarioAdmin'])) {
                         <p>Numero Empleado: <?php echo $usuario['numeroEmpleado']; ?></p>
                         <p>Rol: <?php echo $usuario['rol']; ?></p>
                         <p>Numero Sucursal: <?php echo $usuario['sucursal']; ?></p>
+                        <a href="usuario.php?id=<?php echo $usuario['id']; ?>">Ver detalles</a>
                     </div>
                 <?php
                 }
@@ -78,6 +85,36 @@ if (!isset($_SESSION['idUsuarioAdmin'])) {
             </div>
         </section>
     </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('search-form');
+            const searchInput = document.getElementById('search-input');
+            const container = document.querySelector('.usuarios');
+            const agregar_user = document.getElementById('agregar_user');
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Evita que el formulario se envíe de forma tradicional
+
+                const searchValue = searchInput.value;
+
+                // Realiza la solicitud AJAX
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', 'search_users.php?buscar=' + encodeURIComponent(searchValue), true);
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        // Actualiza el contenido con los resultados de búsqueda
+                        container.innerHTML = xhr.responseText;
+                    } else {
+                        console.error('Error en la solicitud AJAX.');
+                    }
+                };
+                xhr.send();
+            });
+        });
+    </script>
+
 </body>
 
 </html>
